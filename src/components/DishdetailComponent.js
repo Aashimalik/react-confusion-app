@@ -12,44 +12,55 @@ class DishDetail extends Component {
         }
     }
 
+    renderDish(dish) {
+        if(dish)
+            return (
+                <Card>
+                    <CardImg top src={dish.image} alt={dish.name} />
+                    <CardBody>
+                        <CardTitle>{dish.name}</CardTitle>
+                        <CardText>{dish.description}</CardText>
+                    </CardBody>
+                </Card>
+            )
+        return <div></div>
+    }
+
     renderComments(comments){
- return comments.map((com) => {
-          console.log("disidm",com)
+        if(comments)
         return (
-          
-           <div key={com.id} className="list-unstyled">
-            --{com.author},{com.date}<br/>
-            -{com.comment}
-            <br/>
-            <br/>
-           </div>
-     
-        );
-    });
+            <div>
+                <h4>Comments</h4>
+                <ul className="list-unstyled">
+                    {comments.map(comment => {
+                        return (
+                            <li key={comment.id} className="list-group-item">
+                                {comment.comment} <br />
+                                -- {comment.author}, {new Date(comment.date).toLocaleString()}
+                            </li>
+                        )
+                    })}
+                </ul>
+            </div>
+        )
+    return <div></div>
     }
 
     render() {
         const { dish } = this.props;
-        const menu=this.renderComments(dish.comments);
-        return (
-            <div className="row">
-                <div className="col-12 col-md-5 m-1">
-                    <Card>
-                        <CardImg top src={dish.image} alt={dish.name} />
-                        <CardBody>
-                            <CardTitle>{dish.name}</CardTitle>
-                            <CardText>{dish.description}</CardText>
-                        </CardBody>
-                    </Card>
+      
+        if(dish)
+            return (
+                <div className="row">
+                    <div className="col-12 col-md-5 m-1">
+                        {this.renderDish(dish)}
+                    </div>
+                    <div className="col-12 col-md-5 m-1">
+                        {this.renderComments(dish.comments)}
+                    </div>
                 </div>
-                <div className="col-12 col-md-5 m-1">
-                <h4>Comments</h4>
-                {this.renderComments(dish.comments)}
-                  
-                </div>
-
-            </div>
-        )
+            )
+        return <div></div>
     }
 
 
