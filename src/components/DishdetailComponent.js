@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    Card, CardImg, CardImgOverlay, CardText, CardBody,
+    Card, CardImg,  CardText, CardBody,
     CardTitle
 } from 'reactstrap';
 
@@ -36,7 +36,7 @@ class DishDetail extends Component {
                         return (
                             <li key={comment.id} className="list-group-item">
                                 {comment.comment} <br />
-                                -- {comment.author}, {new Date(comment.date).toLocaleString()}
+                                -- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
                             </li>
                         )
                     })}
@@ -51,6 +51,7 @@ class DishDetail extends Component {
       
         if(dish)
             return (
+                <div className="container">
                 <div className="row">
                     <div className="col-12 col-md-5 m-1">
                         {this.renderDish(dish)}
@@ -58,6 +59,7 @@ class DishDetail extends Component {
                     <div className="col-12 col-md-5 m-1">
                         {this.renderComments(dish.comments)}
                     </div>
+                </div>
                 </div>
             )
         return <div></div>
